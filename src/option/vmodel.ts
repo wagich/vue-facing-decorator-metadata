@@ -1,6 +1,6 @@
 import type { Cons } from '../component'
 import type { OptionBuilder } from '../optionBuilder'
-import { obtainSlot, optionNullableMemberDecorator } from '../utils'
+import { obtainSlot, optionNullableMemberDecorator, reflectMetadataIsSupported } from '../utils'
 import { decorator as PropsDecorator, type PropsConfig } from './props'
 
 export type VModelConfig = PropsConfig & {
@@ -11,6 +11,24 @@ export const decorator = optionNullableMemberDecorator(function (proto: any, nam
     option ??= {}
     const slot = obtainSlot(proto)
     let vmodelName = 'modelValue'
+
+    // code from https://github.com/kaorun343/vue-property-decorator/blob/master/src/helpers/metadata.ts
+    // to generate "type" option from metadata
+    if (reflectMetadataIsSupported) {
+        option ??= {};
+        if (
+            !Array.isArray(option) &&
+            typeof option !== 'function' &&
+            !option.hasOwnProperty('type') &&
+            typeof option.type === 'undefined'
+        ) {
+            const type = Reflect.getMetadata('design:type', proto, name)
+            if (type !== Object) {
+                option.type = type
+            }
+        }
+    }
+
     const propsConfig = { ...option }
     if (propsConfig) {
         vmodelName = propsConfig.name ?? vmodelName

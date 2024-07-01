@@ -1,7 +1,7 @@
 {
-  "name": "vue-facing-decorator",
+  "name": "@wagich/vue-facing-decorator-metadata",
   "version": "3.0.4",
-  "description": "Vue typescript class and decorator based component.",
+  "description": "Vue typescript class and decorator based component. Adds support to infer Prop/VModel type using reflect-metadata (like vue-property-decorator).",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "keywords": [
@@ -45,13 +45,17 @@
     "jsdom": "^20.0.0",
     "jsdom-global": "^3.0.2",
     "mocha": "^10.0.0",
+    "reflect-metadata": "^0.2.2",
     "ts-node": "^10.8.1",
     "typescript": "^5.1.6",
     "vue": "^3.2.37"
   },
-  "homepage": "https://github.com/facing-dev/vue-facing-decorator",
+  "homepage": "https://github.com/wagich/vue-facing-decorator-metadata",
   "repository": {
     "type": "git",
-    "url": "git@github.com:facing-dev/vue-facing-decorator.git"
+    "url": "git+https://github.com/wagich/vue-facing-decorator-metadata.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }

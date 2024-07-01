@@ -178,3 +178,6 @@ export function getProviderFunction(provide: any): () => {} {
     if (typeof provide === 'function') return provide
     return function () { return provide || {} }
 }
+
+export const reflectMetadataIsSupported =
+    typeof Reflect !== 'undefined' && typeof Reflect.getMetadata !== 'undefined'
