@@ -18,14 +18,14 @@
   "scripts": {
     "test-build": "npm run build && npm run test",
     "test": "npm run test-stage2 && npm run test-stage3",
-    "test-stage2": "env TS_NODE_COMPILER_OPTIONS='{\"experimentalDecorators\": true }' mocha -r ts-node/register test/test.ts",
-    "test-stage3": "env TS_NODE_COMPILER_OPTIONS='{\"experimentalDecorators\": false }' mocha -r ts-node/register test/test.ts",
+    "test-stage2": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"experimentalDecorators\\\":true} mocha -r ts-node/register test/test.ts",
+    "test-stage3": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"experimentalDecorators\\\":false} mocha -r ts-node/register test/test.ts",
     "build": "npm run build:cjs && npm run build:esm",
-    "build:cjs": "./node_modules/.bin/tsc",
-    "build:esm": "./node_modules/.bin/tsc -outDir dist/esm -module ES6",
+    "build:cjs": "npx tsc",
+    "build:esm": "npx tsc -outDir dist/esm -module es6",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "watch": "./node_modules/.bin/tsc -outDir dist/esm -module ES6 --watch"
+    "watch": "npx tsc -outDir dist/esm -module es6 --watch"
   },
   "author": "",
   "license": "MIT",
@@ -40,6 +40,7 @@
     "@typescript-eslint/parser": "^5.54.0",
     "@vue/test-utils": "^2.0.2",
     "chai": "^4.3.6",
+    "cross-env": "^7.0.3",
     "eslint": "^8.35.0",
     "jsdom": "^20.0.0",
     "jsdom-global": "^3.0.2",
