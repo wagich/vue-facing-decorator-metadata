@@ -1,6 +1,6 @@
 {
   "name": "@wagich/vue-facing-decorator-metadata",
-  "version": "3.0.4",
+  "version": "3.1.0",
   "description": "Vue typescript class and decorator based component. Adds support to infer Prop/VModel type using reflect-metadata (like vue-property-decorator).",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
@@ -57,5 +57,8 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
+  },
+  "dependencies": {
+    "debounce": "^2.1.0"
   }
 }

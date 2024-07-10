@@ -1,3 +1,4 @@
+import debounce from 'debounce';
 import type { Cons } from '../component'
 import type { OptionBuilder } from '../optionBuilder'
 import { obtainSlot, } from '../utils'
@@ -10,14 +11,18 @@ export interface WatchConfig {
     deep?: boolean,
     immediate?: boolean,
 }
-type Option = Omit<WatchConfig, 'handler' | 'key'>
+type Option = Omit<WatchConfig, 'handler' | 'key'> & { debounce?: number, debounceImmediate?: boolean }
 export function decorator(key: string, option?: Option) {
     return compatibleMemberDecorator(function (proto: any, name: string) {
         const slot = obtainSlot(proto)
         const map = slot.obtainMap('watch');
+        let handler = proto[name];
+        if (option?.debounce != null && option.debounce > 0) {
+            handler = debounce(handler, option.debounce, { immediate: option.debounceImmediate ?? false });
+        }
         const opt = Object.assign({}, option ?? {}, {
             key: key,
-            handler: proto[name]
+            handler: handler
         })
         if (map.has(name)) {
             const t = map.get(name)!
